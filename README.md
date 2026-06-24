@@ -4,7 +4,7 @@
 ![discord.py](https://img.shields.io/badge/discord.py-2.4%2B-5865F2?logo=discord&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-在新成員加入 Discord 伺服器時，自動指派指定身分組的 Python 機器人。這個版本已重構為較新的 `discord.py 2.x` 專案格式，使用 `src/` 套件結構、`.env` 設定、`commands.Bot`、Cog 模組化與基本測試。
+在新成員加入 Discord 伺服器時，自動指派指定身分組的 Python 機器人。
 
 ## Features
 
