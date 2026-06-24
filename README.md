@@ -1,30 +1,99 @@
-# DiscordAutoRoleBot
-Discord 自動分配身份組機器人
+# Discord Auto Role
 
-本程式使用 Python 語言和 [Discord.py](https://discordpy.readthedocs.io/en/stable/) 模組來實現。該機器人可以在新成員加入 Discord 群時自動給予指定的身份組。
+![Python](https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white)
+![discord.py](https://img.shields.io/badge/discord.py-2.4%2B-5865F2?logo=discord&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-## 使用方法
+在新成員加入 Discord 伺服器時，自動指派指定身分組的 Python 機器人。這個版本已重構為較新的 `discord.py 2.x` 專案格式，使用 `src/` 套件結構、`.env` 設定、`commands.Bot`、Cog 模組化與基本測試。
 
-1. 在 Discord 開發者頁面中建立一個新的機器人，獲取其 TOKEN。
-2. 將 TOKEN 和身份組 ID 或名稱添加到 `config.py` 文件中，以便在程式碼中調用。
-3. 運行 `bot.py` 文件，啟動機器人。
-4. 當有成員加入 Discord 群時，機器人會自動給予指定的身份組。
+## Features
 
-您也可以編輯程式碼，使機器人發送歡迎訊息或其他訊息給新成員。具體的編輯方式可以參考 `bot.py` 文件中的註釋。
+- 使用 `.env` 管理機器人 Token 與角色設定
+- 支援以角色 `ID` 或角色 `名稱` 指派身分組
+- 可選擇限制只在單一 guild/server 生效
+- 採用 `commands.Bot` + `setup_hook()` + Cog 的現代結構
+- 內建設定驗證與啟動日誌
 
-## 需要的 Python 環境
+## Project Structure
 
-- Python 3.7 或更高版本
-- Discord.py 1.7.2 或更高版本
+```text
+.
+├─ src/discord_auto_role/
+│  ├─ __main__.py
+│  ├─ bot.py
+│  ├─ config.py
+│  ├─ logging_config.py
+│  ├─ role_selector.py
+│  └─ cogs/auto_role.py
+├─ tests/
+├─ .env.example
+└─ pyproject.toml
+```
 
-## 注意事項
+## Requirements
 
-- 在將程式碼部署到公共伺服器或私人伺服器之前，請務必將 TOKEN 隱藏起來，以免被他人拿到。
-- 請務必確保程式碼中的身份組 ID 或名稱是存在於 Discord 群中的有效身份組。
-- 如果機器人無法正常運行，請確保已經在 Discord 開發者頁面中啟用了相應的 Intents。
-- 本程式僅供學習和測試使用，請勿濫用或用於商業用途。
+- Python 3.11+
+- 啟用 Discord Developer Portal 中的 `Server Members Intent`
+- 已將機器人加入目標 Discord 伺服器
 
-## 參考資料
+## Quick Start
 
-- [Discord 開發者文件](https://discord.com/developers/docs/)
-- [Discord.py 文檔](https://discordpy.readthedocs.io/en/stable/)
+1. 建立虛擬環境並安裝依賴：
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   pip install -e .
+   ```
+
+2. 複製環境變數範本：
+
+   ```bash
+   cp .env.example .env
+   ```
+
+3. 編輯 `.env`：
+
+   ```dotenv
+   DISCORD_BOT_TOKEN=your-bot-token
+   DISCORD_GUILD_ID=123456789012345678
+   DISCORD_ROLE_ID=987654321098765432
+   DISCORD_ROLE_NAME=
+   ```
+
+4. 啟動機器人：
+
+   ```bash
+   python -m discord_auto_role
+   ```
+
+## Environment Variables
+
+| Name | Required | Description |
+| --- | --- | --- |
+| `DISCORD_BOT_TOKEN` | Yes | Discord Bot Token |
+| `DISCORD_GUILD_ID` | No | 限制僅在指定 guild 進行自動派發 |
+| `DISCORD_ROLE_ID` | Recommended | 目標身分組 ID |
+| `DISCORD_ROLE_NAME` | Optional fallback | 目標身分組名稱 |
+
+建議優先使用 `DISCORD_ROLE_ID`，因為角色名稱可能重複或後續被修改。
+
+## Development
+
+執行單元測試：
+
+```bash
+PYTHONPATH=src python -m unittest discover -s tests -v
+```
+
+語法檢查：
+
+```bash
+python -m compileall src tests
+```
+
+## Notes
+
+- `.env` 已加入 `.gitignore`，不會被推送到 GitHub
+- 如果角色找不到，機器人會記錄 warning，不會直接崩潰
+- 若需要延伸歡迎訊息、slash commands 或更多事件，可在 `cogs/` 中新增模組
