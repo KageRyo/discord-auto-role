@@ -11,6 +11,7 @@ A Python Discord bot that automatically assigns a role to new members when they 
 - Manages the bot token and role settings through `.env`
 - Selects the target role by role `ID` or role `name`
 - Optionally restricts auto-role to a single guild/server
+- Skips bot accounts, so other bots joining the server are left untouched
 - Respects Membership Screening / Onboarding: pending members get the role once they complete verification
 - Checks the bot's `Manage Roles` permission and role hierarchy before assigning, and logs a clear warning instead of failing
 - `/autorole` slash command (admins with `Manage Roles` only) to check the configuration and whether the role can be assigned
