@@ -17,18 +17,25 @@ jobs:
         python-version: ["3.11", "3.12", "3.13"]
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-python@v7
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python-version }}
-          cache: pip
 
-      - name: Install package
-        run: pip install -e .
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.12.5"
+
+      # Install only the locked, hash-verified dependency wheels. The project
+      # itself is not built; tests import it from src/ via PYTHONPATH.
+      - name: Install locked dependencies
+        run: uv sync --locked --no-build --no-install-project
 
       - name: Compile check
-        run: python -m compileall -q src tests
+        run: uv run --no-sync python -m compileall -q src tests
 
       - name: Run unit tests
-        run: python -m unittest discover -s tests -v
+        run: uv run --no-sync python -m unittest discover -s tests -v
+        env:
+          PYTHONPATH: src
