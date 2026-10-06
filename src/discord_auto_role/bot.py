@@ -7,6 +7,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 from discord_auto_role.cogs.auto_role import AutoRoleCog
+from discord_auto_role.command_sync import commands_match
 from discord_auto_role.config import load_settings
 from discord_auto_role.logging_config import configure_logging
 
@@ -42,12 +43,28 @@ class AutoRoleBot(commands.Bot):
             # Guild-scoped sync is applied instantly, which suits a single-server bot.
             guild = discord.Object(id=self.settings.guild_id)
             self.tree.copy_global_to(guild=guild)
-            synced = await self.tree.sync(guild=guild)
-            LOGGER.info("Synced %d app command(s) to guild %s.", len(synced), guild.id)
+            await self._sync_if_changed(guild)
+            # Drop global copies left over from running without DISCORD_GUILD_ID,
+            # otherwise every command would show up twice in that guild.
+            self.tree.clear_commands(guild=None)
+            await self._sync_if_changed(None)
             return
 
-        synced = await self.tree.sync()
-        LOGGER.info("Synced %d global app command(s).", len(synced))
+        await self._sync_if_changed(None)
+        # Drop guild-scoped copies left over from a previous DISCORD_GUILD_ID setup.
+        async for guild in self.fetch_guilds(limit=None):
+            await self._sync_if_changed(guild)
+
+    async def _sync_if_changed(self, guild: discord.abc.Snowflake | None) -> None:
+        scope = "global scope" if guild is None else f"guild {guild.id}"
+        remote = await self.tree.fetch_commands(guild=guild)
+        local = self.tree.get_commands(guild=guild)
+        if commands_match(local, remote):
+            LOGGER.info("App commands for %s are up to date; skipping sync.", scope)
+            return
+
+        synced = await self.tree.sync(guild=guild)
+        LOGGER.info("Synced %d app command(s) to %s.", len(synced), scope)
 
     async def on_ready(self) -> None:
         if self.user is None:
