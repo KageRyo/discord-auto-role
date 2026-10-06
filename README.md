@@ -8,7 +8,9 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits&logoColor=white)](https://www.conventionalcommits.org/en/v1.0.0/)
 [![Last commit](https://img.shields.io/github/last-commit/KageRyo/discord-auto-role)](https://github.com/KageRyo/discord-auto-role/commits/main)
 
-A Python Discord bot that automatically assigns a role to new members when they join your server.
+**A Python Discord bot that automatically assigns a role to new members when they join your server.**
+
+[正體中文](README-zh.md)
 
 ## Features
 
@@ -42,9 +44,23 @@ A Python Discord bot that automatically assigns a role to new members when they 
 ## Requirements
 
 - Python 3.11+
-- `Server Members Intent` enabled for the bot in the Discord Developer Portal
-- The bot invited to your server with the `bot` and `applications.commands` scopes and the `Manage Roles` permission
+- A Discord application with a bot user
 - The bot's highest role placed **above** the role it should assign
+
+## Discord Setup
+
+1. Open the [Discord Developer Portal](https://discord.com/developers/applications), create an application and copy the bot token from the **Bot** page.
+2. On the same page, enable **Server Members Intent** under *Privileged Gateway Intents*. Without it the bot never receives join events.
+3. Invite the bot with the `bot` and `applications.commands` scopes and the `Manage Roles` permission. Replace `YOUR_APPLICATION_ID` with the ID from the **General Information** page:
+
+   ```text
+   https://discord.com/oauth2/authorize?client_id=YOUR_APPLICATION_ID&scope=bot+applications.commands&permissions=268435456
+   ```
+
+4. In **Server Settings → Roles**, drag the bot's role above the role it should assign. Discord does not let a bot assign a role at or above its own highest role.
+5. Enable **Developer Mode** in Discord (*User Settings → Advanced*) so you can right-click the server and the role to copy their IDs for `.env`.
+
+After the bot starts, run `/autorole` in your server to confirm it reports **Ready to assign**.
 
 ## Quick Start
 
@@ -112,8 +128,35 @@ Syntax check:
 python -m compileall src tests
 ```
 
+GitHub Actions runs both checks on Python 3.11, 3.12 and 3.13 for every push to `main` and every pull request.
+
+## Troubleshooting
+
+| Symptom | Cause and fix |
+| --- | --- |
+| New members never get the role | Enable **Server Members Intent** in the Developer Portal and restart the bot |
+| Log says `the bot is missing the Manage Roles permission` | Grant `Manage Roles` to the bot's role, or re-invite it with the URL above |
+| Log says the role `is not below the bot's highest role` | Move the bot's role above the target role in **Server Settings → Roles** |
+| Log says `Role not found` | Check `DISCORD_ROLE_ID` / `DISCORD_ROLE_NAME` and `DISCORD_GUILD_ID` in `.env` |
+| `/autorole` does not appear | Re-invite the bot with the `applications.commands` scope; global commands can take a while to appear without `DISCORD_GUILD_ID` |
+| Members with screening enabled get the role late | Expected: the role is assigned once they complete Membership Screening / Onboarding |
+
 ## Notes
 
-- `.env` is listed in `.gitignore` and will not be pushed to GitHub
+- `.env` is listed in `.gitignore` and will not be pushed to GitHub. Never commit bot tokens.
 - If the role cannot be found or assigned, the bot logs a warning instead of crashing
 - To add welcome messages, more slash commands or other events, add new modules under `cogs/`
+
+## Release History
+
+See [CHANGELOG.md](CHANGELOG.md) for every release and the [GitHub Releases](https://github.com/KageRyo/discord-auto-role/releases) page for release notes.
+
+## Contributing
+
+Bug reports, documentation improvements and pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Thanks to everyone listed in [CONTRIBUTORS.md](CONTRIBUTORS.md).
+
+## License
+
+Discord Auto Role is released under the [MIT License](LICENSE).
+
+Copyright © 2022–2026 **Chien-Hsun Chang** and [contributors](CONTRIBUTORS.md).
