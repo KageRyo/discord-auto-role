@@ -38,7 +38,8 @@
 │  └─ cogs/auto_role.py
 ├─ tests/
 ├─ .env.example
-└─ pyproject.toml
+├─ pyproject.toml
+└─ uv.lock
 ```
 
 ## Requirements
@@ -128,7 +129,7 @@ Syntax check:
 python -m compileall src tests
 ```
 
-GitHub Actions runs both checks on Python 3.11, 3.12 and 3.13 for every push to `main` and every pull request.
+GitHub Actions runs both checks on Python 3.11, 3.12 and 3.13 for every push to `main` and every pull request, using the hash-verified versions pinned in `uv.lock`. See [CONTRIBUTING.md](CONTRIBUTING.md) for the uv-based workflow.
 
 ## Troubleshooting
 
