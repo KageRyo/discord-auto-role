@@ -25,6 +25,7 @@ A Python Discord bot that automatically assigns a role to new members when they 
 ├─ src/discord_auto_role/
 │  ├─ __main__.py
 │  ├─ bot.py
+│  ├─ command_sync.py
 │  ├─ config.py
 │  ├─ logging_config.py
 │  ├─ role_selector.py
@@ -89,7 +90,9 @@ Prefer `DISCORD_ROLE_ID`, since role names can be duplicated or renamed later.
 | --- | --- | --- |
 | `/autorole` | Members with `Manage Roles` | Shows the target role and whether the bot is able to assign it (ephemeral reply) |
 
-When `DISCORD_GUILD_ID` is set, commands are synced to that guild on startup and appear immediately. Without it, commands are synced globally, which can take a while to show up.
+When `DISCORD_GUILD_ID` is set, commands are registered to that guild and appear immediately. Without it, commands are registered globally, which can take a while to show up.
+
+On startup the bot compares its commands with what Discord already has and only syncs when names, descriptions or default permissions differ, so routine restarts do not hit the command rate limits. Switching `DISCORD_GUILD_ID` on or off also removes the leftover commands from the previous mode, so commands are never listed twice.
 
 ## Development
 
