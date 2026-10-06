@@ -38,7 +38,8 @@
 │  └─ cogs/auto_role.py
 ├─ tests/
 ├─ .env.example
-└─ pyproject.toml
+├─ pyproject.toml
+└─ uv.lock
 ```
 
 ## 需求
@@ -128,7 +129,7 @@ PYTHONPATH=src python -m unittest discover -s tests -v
 python -m compileall src tests
 ```
 
-每次 push 到 `main` 以及每個 pull request，GitHub Actions 都會在 Python 3.11、3.12、3.13 上執行以上檢查。
+每次 push 到 `main` 以及每個 pull request，GitHub Actions 都會使用 `uv.lock` 中鎖定且驗證過雜湊值的版本，在 Python 3.11、3.12、3.13 上執行以上檢查。使用 uv 的開發流程請見 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 疑難排解
 

@@ -7,6 +7,18 @@ project follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Security
+
+- CI installs dependencies from a committed, hash-verified `uv.lock` without
+  building packages from source, and GitHub Actions are pinned to full commit
+  SHAs (SonarCloud `githubactions:S8541`, `githubactions:S8544`,
+  `text:S8565`).
+
+### Changed
+
+- Dependabot now updates `uv.lock` instead of pip requirements.
+- `CONTRIBUTING.md` documents the uv-based development workflow.
+
 ## [2.1.2] - 2026-10-06
 
 ### Added

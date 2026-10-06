@@ -12,23 +12,31 @@ improvements, tests and new features are all welcome.
 
 ## Development setup
 
+The project uses [uv](https://docs.astral.sh/uv/) with a committed `uv.lock`, so
+everyone installs the same hash-verified dependency versions:
+
 ```bash
 git clone https://github.com/KageRyo/discord-auto-role.git
 cd discord-auto-role
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -e ".[dev]"
+uv sync --locked
 cp .env.example .env
 ```
 
 Run the same checks used by CI before opening a pull request:
 
 ```bash
-python -m compileall -q src tests
-PYTHONPATH=src python -m unittest discover -s tests -v
+uv run python -m compileall -q src tests
+PYTHONPATH=src uv run python -m unittest discover -s tests -v
 ```
 
-CI runs these checks on Python 3.11, 3.12 and 3.13.
+CI runs these checks on Python 3.11, 3.12 and 3.13. It installs only the locked
+dependency wheels (`uv sync --locked --no-build --no-install-project`) and never
+builds packages from source.
+
+When you change dependencies in `pyproject.toml`, run `uv lock` and commit the
+updated `uv.lock` in the same pull request. Dependabot proposes weekly
+`uv.lock` and GitHub Actions updates; Actions are pinned to full commit SHAs
+with a version comment, so update both together.
 
 To try the bot end to end, use a separate test server and test role, and
 follow the [Discord setup](README.md#discord-setup) steps in the README.
