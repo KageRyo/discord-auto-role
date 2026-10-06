@@ -34,6 +34,19 @@ class AutoRoleBot(commands.Bot):
 
     async def setup_hook(self) -> None:
         await self.add_cog(AutoRoleCog(self))
+        await self._sync_app_commands()
+
+    async def _sync_app_commands(self) -> None:
+        if self.settings.guild_id is not None:
+            # Guild-scoped sync is applied instantly, which suits a single-server bot.
+            guild = discord.Object(id=self.settings.guild_id)
+            self.tree.copy_global_to(guild=guild)
+            synced = await self.tree.sync(guild=guild)
+            LOGGER.info("Synced %d app command(s) to guild %s.", len(synced), guild.id)
+            return
+
+        synced = await self.tree.sync()
+        LOGGER.info("Synced %d global app command(s).", len(synced))
 
     async def on_ready(self) -> None:
         if self.user is None:

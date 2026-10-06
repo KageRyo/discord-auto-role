@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 
 import discord
+from discord import app_commands
 from discord.ext import commands
 
 from discord_auto_role.config import Settings
@@ -83,3 +84,39 @@ class AutoRoleCog(commands.Cog):
             member.id,
             guild.id,
         )
+
+    @app_commands.command(
+        name="autorole",
+        description="Show the auto-role configuration and whether the bot can assign it.",
+    )
+    @app_commands.allowed_installs(guilds=True, users=False)
+    @app_commands.allowed_contexts(guilds=True, dms=False, private_channels=False)
+    @app_commands.default_permissions(manage_roles=True)
+    async def autorole_status(self, interaction: discord.Interaction) -> None:
+        guild = interaction.guild
+        if guild is None:
+            await interaction.response.send_message(
+                "This command can only be used in a server.", ephemeral=True
+            )
+            return
+
+        if not self._is_target_guild(guild):
+            await interaction.response.send_message(
+                "Auto role is not enabled for this server.", ephemeral=True
+            )
+            return
+
+        role = find_target_role(guild.roles, self.settings)
+        if role is None:
+            status = f"Role not found using {self.settings.target_description}."
+        else:
+            problem = assignment_problem(
+                role,
+                can_manage_roles=guild.me.guild_permissions.manage_roles,
+            )
+            status = f"Cannot assign: {problem}." if problem else "Ready to assign."
+
+        embed = discord.Embed(title="Auto Role", color=discord.Color.blurple())
+        embed.add_field(name="Target", value=role.mention if role else "—", inline=False)
+        embed.add_field(name="Status", value=status, inline=False)
+        await interaction.response.send_message(embed=embed, ephemeral=True)
