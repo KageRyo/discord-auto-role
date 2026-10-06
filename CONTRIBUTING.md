@@ -75,8 +75,9 @@ kept on `main`.
 
 1. Move the `[Unreleased]` entries in `CHANGELOG.md` to a new version section.
 2. Bump `version` in `pyproject.toml` and `__version__` in
-   `src/discord_auto_role/__init__.py` with a
-   `chore(release): bump version to X.Y.Z` commit.
+   `src/discord_auto_role/__init__.py`, run `uv lock` (the lock file records the
+   project version), and commit all of it as
+   `chore(release): bump version to X.Y.Z`.
 3. After the pull request is merged, tag the merge result as `vX.Y.Z` and
    publish a GitHub Release titled `AutoRole vX.Y.Z`.
 
