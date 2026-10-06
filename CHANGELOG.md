@@ -11,6 +11,8 @@ project follows [Semantic Versioning](https://semver.org/).
 
 - `CONTRIBUTING.md` documents the GitHub Flow workflow, branch naming and
   required checks.
+- `main` is protected: changes require a pull request with passing `Tests`
+  and SonarCloud checks, linear history, and no force pushes or deletion.
 
 ## [2.1.3] - 2026-10-06
 
