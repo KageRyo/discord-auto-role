@@ -3,8 +3,6 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass
 
-from dotenv import load_dotenv
-
 
 class ConfigError(ValueError):
     pass
@@ -41,8 +39,6 @@ def _read_optional_text(name: str) -> str | None:
 
 
 def load_settings() -> Settings:
-    load_dotenv()
-
     token = os.getenv("DISCORD_BOT_TOKEN", "").strip()
     guild_id = _read_optional_int("DISCORD_GUILD_ID")
     role_id = _read_optional_int("DISCORD_ROLE_ID")
