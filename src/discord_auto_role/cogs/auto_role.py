@@ -20,9 +20,12 @@ class AutoRoleCog(commands.Cog):
     def _is_target_guild(self, guild: discord.Guild) -> bool:
         return self.settings.guild_id is None or guild.id == self.settings.guild_id
 
+    def _should_handle(self, member: discord.Member) -> bool:
+        return not member.bot and self._is_target_guild(member.guild)
+
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member) -> None:
-        if not self._is_target_guild(member.guild):
+        if not self._should_handle(member):
             return
 
         # Members still going through Membership Screening / Onboarding are
@@ -35,7 +38,7 @@ class AutoRoleCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_update(self, before: discord.Member, after: discord.Member) -> None:
-        if not self._is_target_guild(after.guild):
+        if not self._should_handle(after):
             return
 
         if before.pending and not after.pending:
