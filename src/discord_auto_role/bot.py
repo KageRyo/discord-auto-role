@@ -4,6 +4,7 @@ import logging
 
 import discord
 from discord.ext import commands
+from dotenv import load_dotenv
 
 from discord_auto_role.cogs.auto_role import AutoRoleCog
 from discord_auto_role.config import load_settings
@@ -62,6 +63,7 @@ class AutoRoleBot(commands.Bot):
 
 def run() -> None:
     configure_logging()
+    load_dotenv()
     bot = AutoRoleBot()
     LOGGER.info("Starting bot with target %s", bot.settings.target_description)
     bot.run(bot.settings.discord_token, log_handler=None)
