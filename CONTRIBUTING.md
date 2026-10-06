@@ -83,7 +83,15 @@ The project follows [GitHub Flow](https://docs.github.com/en/get-started/using-g
    then delete the branch.
 6. **Release from `main`** when the merged changes should ship (see below).
 
-Never push directly to `main`, and never rewrite its history.
+### Protected `main`
+
+`main` accepts changes only through a pull request that passes the four
+required checks: `test (3.11)`, `test (3.12)`, `test (3.13)` and
+`SonarCloud Code Analysis`. The branch must be up to date with `main` before
+merging, and history must stay linear, which is why pull requests are merged
+with rebase. Direct pushes, force pushes and deleting `main` are blocked.
+No approving review is required, but administrators are not exempt from these
+rules.
 
 ## Releases
 
