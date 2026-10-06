@@ -1,8 +1,12 @@
 # Discord Auto Role
 
-![Python](https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white)
+[![Release](https://img.shields.io/github/v/release/KageRyo/discord-auto-role)](https://github.com/KageRyo/discord-auto-role/releases/latest)
+[![Tests](https://github.com/KageRyo/discord-auto-role/actions/workflows/tests.yml/badge.svg)](https://github.com/KageRyo/discord-auto-role/actions/workflows/tests.yml)
+![Python](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FKageRyo%2Fdiscord-auto-role%2Fmain%2Fpyproject.toml&logo=python&logoColor=white)
 ![discord.py](https://img.shields.io/badge/discord.py-2.7%2B-5865F2?logo=discord&logoColor=white)
-![License](https://img.shields.io/badge/license-MIT-green)
+[![License](https://img.shields.io/github/license/KageRyo/discord-auto-role)](LICENSE)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits&logoColor=white)](https://www.conventionalcommits.org/en/v1.0.0/)
+[![Last commit](https://img.shields.io/github/last-commit/KageRyo/discord-auto-role)](https://github.com/KageRyo/discord-auto-role/commits/main)
 
 A Python Discord bot that automatically assigns a role to new members when they join your server.
 
