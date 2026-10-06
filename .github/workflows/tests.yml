@@ -33,9 +33,9 @@ jobs:
         run: uv sync --locked --no-build --no-install-project
 
       - name: Compile check
-        run: uv run --no-sync python -m compileall -q src tests
+        run: uv run --no-sync --no-build python -m compileall -q src tests
 
       - name: Run unit tests
-        run: uv run --no-sync python -m unittest discover -s tests -v
+        run: uv run --no-sync --no-build python -m unittest discover -s tests -v
         env:
           PYTHONPATH: src
