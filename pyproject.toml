@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "discord-auto-role"
-version = "2.1.0"
+version = "2.1.1"
 description = "A modern Discord bot that automatically assigns a role to new guild members."
 readme = "README.md"
 requires-python = ">=3.11"
