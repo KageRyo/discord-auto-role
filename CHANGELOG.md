@@ -7,6 +7,8 @@ project follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [2.1.4] - 2026-10-06
+
 ### Changed
 
 - `CONTRIBUTING.md` documents the GitHub Flow workflow, branch naming and
@@ -103,7 +105,8 @@ project follows [Semantic Versioning](https://semver.org/).
 
 - First release of the AutoRole bot.
 
-[Unreleased]: https://github.com/KageRyo/discord-auto-role/compare/v2.1.3...HEAD
+[Unreleased]: https://github.com/KageRyo/discord-auto-role/compare/v2.1.4...HEAD
+[2.1.4]: https://github.com/KageRyo/discord-auto-role/compare/v2.1.3...v2.1.4
 [2.1.3]: https://github.com/KageRyo/discord-auto-role/compare/v2.1.2...v2.1.3
 [2.1.2]: https://github.com/KageRyo/discord-auto-role/compare/v2.1.1...v2.1.2
 [2.1.1]: https://github.com/KageRyo/discord-auto-role/compare/v2.1.0...v2.1.1
