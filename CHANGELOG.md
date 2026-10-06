@@ -7,6 +7,11 @@ project follows [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- `CONTRIBUTING.md` documents the GitHub Flow workflow, branch naming and
+  required checks.
+
 ## [2.1.3] - 2026-10-06
 
 ### Security

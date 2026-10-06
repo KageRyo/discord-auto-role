@@ -10,6 +10,7 @@
 
 ## Checklist
 
+- [ ] Branch is based on the latest `main` and named `<type>/<short-description>`.
 - [ ] Commits follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 - [ ] No bot tokens, `.env` files or other credentials were committed.
 - [ ] `README.md` and `README-zh.md` are aligned when relevant.

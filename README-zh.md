@@ -154,7 +154,7 @@ python -m compileall src tests
 
 ## 參與貢獻
 
-歡迎回報問題、改善文件或提交 pull request。開 PR 前請先閱讀 [CONTRIBUTING.md](CONTRIBUTING.md)。感謝 [CONTRIBUTORS.md](CONTRIBUTORS.md) 中的每一位貢獻者。
+歡迎回報問題、改善文件或提交 pull request。本專案採用 [GitHub Flow](https://docs.github.com/zh/get-started/using-github/github-flow)：從 `main` 建立分支、開 pull request，檢查通過後再合併。開 PR 前請先閱讀 [CONTRIBUTING.md](CONTRIBUTING.md)。感謝 [CONTRIBUTORS.md](CONTRIBUTORS.md) 中的每一位貢獻者。
 
 ## 授權
 
