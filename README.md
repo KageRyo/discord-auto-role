@@ -154,7 +154,7 @@ See [CHANGELOG.md](CHANGELOG.md) for every release and the [GitHub Releases](htt
 
 ## Contributing
 
-Bug reports, documentation improvements and pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Thanks to everyone listed in [CONTRIBUTORS.md](CONTRIBUTORS.md).
+Bug reports, documentation improvements and pull requests are welcome. The project follows [GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow): branch from `main`, open a pull request, and merge once the checks pass. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Thanks to everyone listed in [CONTRIBUTORS.md](CONTRIBUTORS.md).
 
 ## License
 
