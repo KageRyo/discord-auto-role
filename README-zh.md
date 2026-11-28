@@ -19,7 +19,7 @@
 - 可選擇只在單一伺服器（guild）生效
 - 略過機器人帳號，其他 bot 加入時不會被指派身分組
 - 支援成員審核（Membership Screening／Onboarding）：待審核的成員會在完成驗證後才取得身分組
-- 指派前會先檢查機器人的 `Manage Roles` 權限與身分組階層，無法指派時記錄明確的警告而不是直接出錯
+- 指派前會先檢查機器人的 `Manage Roles` 權限與身分組階層，無法指派時記錄警告並略過該成員
 - 提供 `/autorole` 斜線指令（僅限具備 `Manage Roles` 權限的管理員），可檢查設定以及身分組是否能被指派
 - 只請求需要的 gateway intents（`guilds` + `members`）
 - 採用 `commands.Bot`、`setup_hook()`、Cog 與 app commands 的現代架構

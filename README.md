@@ -19,7 +19,7 @@
 - Optionally restricts auto-role to a single guild/server
 - Skips bot accounts, so other bots joining the server are left untouched
 - Respects Membership Screening / Onboarding: pending members get the role once they complete verification
-- Checks the bot's `Manage Roles` permission and role hierarchy before assigning, and logs a clear warning instead of failing
+- Checks the bot's `Manage Roles` permission and role hierarchy before assigning; if the role cannot be assigned, it logs a warning and skips the member
 - `/autorole` slash command (admins with `Manage Roles` only) to check the configuration and whether the role can be assigned
 - Requests only the gateway intents it needs (`guilds` + `members`)
 - Modern structure built on `commands.Bot`, `setup_hook()`, cogs and app commands
